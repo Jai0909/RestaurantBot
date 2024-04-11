@@ -29,7 +29,7 @@ The Restaurant Bot App is a web application designed to assist in the management
 To get started with the Restaurant Bot App, clone the repository to your local machine by using the following command:
 
 ```bash
-git clone https://github.com/yourusername/restaurant-bot-app.git
+git clone https://github.com/Jai0909/RestaurantBot.git
 cd restaurant-bot-app
 ```
 
