@@ -30,7 +30,7 @@ To get started with the Restaurant Bot App, clone the repository to your local m
 
 ```bash
 git clone https://github.com/Jai0909/RestaurantBot.git
-cd restaurant-bot-app
+cd RestaurantBot
 ```
 
 ### Install Dependencies (For running from the Python script)
