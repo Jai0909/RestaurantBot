@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect, jsonify,make_response
 import pymysql
 import random
-import smtplib
 import string
 import math, random
 from werkzeug.utils import secure_filename
@@ -15,8 +14,6 @@ from reportlab.pdfgen import canvas
 from PIL import Image
 import matplotlib.pyplot as plt
 import pandas as pd
-import calendar
-
 
 app = Flask(__name__)
 
