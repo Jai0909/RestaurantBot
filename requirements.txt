@@ -1,0 +1,9 @@
+flask
+pymysql
+werkzeug
+datetime
+io
+reportlab
+pillow
+matplotlib
+pandas
