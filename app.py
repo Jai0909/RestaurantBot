@@ -27,7 +27,7 @@ app.config['GRAPH_UPLOADS'] = 'static/graphs/'
 app.secret_key = 'any random string'
 
 def dbConnection():
-    connection = pymysql.connect(host="localhost", user="root", password="Shreya$2408", database="restaurant", port=3306)
+    connection = pymysql.connect(host="localhost", user="root", password="pwd", database="restaurant", port=3306)
     return connection
 
 
