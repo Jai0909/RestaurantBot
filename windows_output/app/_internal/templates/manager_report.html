@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><!-- Basic -->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- Mobile Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Site Metas -->
+	<title>Restaurant BOT - Responsive HTML5 Template</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Site Icons -->
+	<link rel="shortcut icon" href="{{url_for('static',filename='images/favicon.ico')}}" type="image/x-icon">
+	<link rel="apple-touch-icon" href="{{url_for('static',filename='images/apple-touch-icon.png')}}">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+	<!-- Site CSS -->
+	<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+	<!-- Responsive CSS -->
+	<link rel="stylesheet" href="{{url_for('static',filename='css/responsive.css')}}">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="{{url_for('static',filename='css/custom.css')}}">
+
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+	<!-- Start header -->
+	<header class="top-navbar">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container">
+				<a class="navbar-brand" href="{{url_for('static',filename='index.html')}}">
+					<img src="{{url_for('static',filename='images/logo22.jpg')}}" alt="" />
+				</a>
+				<h1 style="display: inline-block; margin-top: 10px; ">
+					<b style="display: block; font-size: 24px; color: #d0a772;">Restaurant</b>
+					<span style="display: block; font-size: 20px; color: #666;">BOT</span>
+				</h1>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food"
+					aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbars-rs-food">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item"><a class="nav-link" href="/viewmenu">Menu</a></li>
+						<li class="nav-item"><a class="nav-link" href="/graph">Graph </a></li>
+						<li class="nav-item"><a class="nav-link" href="/empreport">Employee Report</a></li>
+						<li class="nav-item"><a class="nav-link" href="/manager_monthly_report">Monthly Report</a></li>
+						<li class="nav-item"><a class="nav-link" href="/manager_daily_report">Daily Report</a></li>
+						<a href="/"><button class="btn btn-common"
+								style="padding: 3px 9px; margin: 0px 5px; cursor: pointer;">Logout</button></a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- End header -->
+
+	<!-- Start All Pages -->
+	<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>Manager Monthly Report</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End All Pages -->
+
+	<!-- Start Reservation -->
+	<div class="reservation-box">
+		<div class="container">
+			<!-- <div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2>Reservation</h2>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
+					</div>
+				</div>
+			</div> -->
+			<div class="row">
+
+				<div class="col-lg-12 col-sm-12 col-xs-12">
+					<div class="contact-block">
+						<div class="row justify-content-center mt-5">
+							<div class="col-md-6">
+								<style>
+									.card {
+										border: 1px solid #ccc;
+										border-radius: 5px;
+										padding: 10px;
+										margin-bottom: 20px;
+										box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+									}
+
+									.card-header {
+										background-color: #f0f0f0;
+										padding: 10px;
+										border-bottom: 1px solid #ccc;
+										border-top-left-radius: 5px;
+										border-top-right-radius: 5px;
+									}
+
+									.card-body {
+										padding: 10px;
+									}
+
+									table {
+										width: 100%;
+										border-collapse: collapse;
+									}
+
+									th,
+									td {
+										border: 1px solid #ddd;
+										padding: 8px;
+										text-align: left;
+									}
+
+									th {
+										background-color: #f2f2f2;
+									}
+								</style>
+
+
+								<h1>Manager Monthly Report</h1>
+
+								{% for month, report in monthly_reports.items() %}
+								<div class="card">
+									<div class="card-header">
+										<h2>{{ month }}</h2>
+									</div>
+									<div class="card-body">
+										<h3>Most Sold Product This Month: {{ report.most_sold_product[0] }}</h3>
+										{% if report.most_sold_product %}
+										<p>The most sold product this month is: {{ report.most_sold_product[0] }} with
+											{{ report.most_sold_product[1] }} sales</p>
+										{% else %}
+										<p>No sales recorded this month.</p>
+										{% endif %}
+
+										<h3>All Products Sold This Month:</h3>
+										{% if report.product_prices %}
+										<table>
+											<thead>
+												<tr>
+													<th>Product Name</th>
+													<th>Total Sales Price</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for product, price in report.product_prices.items() %}
+												<tr>
+													<td>{{ product }}</td>
+													<td>€{{ price }}</td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+										{% else %}
+										<p>No sales recorded this month.</p>
+										{% endif %}
+
+										<br>
+										<h3>Total Sales Price This Month: € {{ report.total_sales_price }}</h3>
+										<!--<p>€ {{ report.total_sales_price }}</p>-->
+									</div>
+								</div>
+								{% endfor %}
+
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- </div> -->
+		<!-- End Reservation -->
+
+
+
+
+		<!-- ALL JS FILES -->
+		<script src="{{url_for('static',filename='js/jquery-3.2.1.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+		<!-- ALL PLUGINS -->
+		<script src="{{url_for('static',filename='js/jquery.superslides.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/images-loded.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/isotope.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/baguetteBox.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/picker.js')}}"></script>
+		<script src="{{url_for('static',filename='js/picker.date.js')}}"></script>
+		<script src="{{url_for('static',filename='js/picker.time.js')}}"></script>
+		<script src="{{url_for('static',filename='js/legacy.js')}}"></script>
+		<script src="{{url_for('static',filename='js/form-validator.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/contact-form-script.js')}}"></script>
+		<script src="{{url_for('static',filename='js/custom.js')}}"></script>
+</body>
+
+</html>
