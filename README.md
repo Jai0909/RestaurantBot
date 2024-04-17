@@ -84,14 +84,14 @@ python app.py
 No installation of dependencies is required to run the precompiled executables. Navigate to the respective output directory and run the executable for your operating system.
 
 #### On Linux
-Navigate to the `linux_output` directory and execute:
+Navigate to the `linux_output/app` directory and execute:
 
 ```bash
 ./app
 ```
 
 #### On Windows
-Navigate to the `windows_output` directory and execute:
+Navigate to the `windows_output/app` directory and execute:
 
 ```bash
 app.exe
