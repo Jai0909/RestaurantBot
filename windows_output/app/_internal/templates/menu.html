@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en"><!-- Basic -->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- Mobile Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Site Metas -->
+	<title>Restaurant BOT - Responsive HTML5 Template</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Site Icons -->
+	<link rel="shortcut icon" href="{{url_for('static',filename='images/favicon.ico')}}" type="image/x-icon">
+	<link rel="apple-touch-icon" href="{{url_for('static',filename='images/apple-touch-icon.png')}}">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+	<!-- Site CSS -->
+	<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+	<!-- Responsive CSS -->
+	<link rel="stylesheet" href="{{url_for('static',filename='css/responsive.css')}}">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="{{url_for('static',filename='css/custom.css')}}">
+
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+	<!-- Start header -->
+	<header class="top-navbar">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container">
+				<a class="navbar-brand" href="/">
+					<img src="{{url_for('static',filename='images/logo22.jpg')}}" alt="" />
+				</a>
+				<h1 style="display: inline-block; margin-top: 10px; ">
+					<b style="display: block; font-size: 24px; color: #d0a772;">Restaurant</b>
+					<span style="display: block; font-size: 20px; color: #666;">BOT</span>
+				</h1>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food"
+					aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbars-rs-food">
+					<ul class="navbar-nav ml-auto">
+						<!-- <li class="nav-item "><a class="nav-link" href="/empindex">Home</a></li> -->
+						<li class="nav-item"><a class="nav-link" href="/menu">View Menu</a></li>
+						
+						<button id="startShiftBtn" class="btn btn-common" style="padding: 3px 9px; margin: 0px 5px; cursor: pointer;">Start Shift</button>
+                        <button id="stopShiftBtn" class="btn btn-common" style="padding: 3px 9px; margin: 0px 5px; cursor: pointer;">Stop Shift</button>
+                        <a href="/"><button class="btn btn-common" style="padding: 3px 9px; margin: 0px 5px; cursor: pointer;">Logout</button></a>
+
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- End header -->
+
+	<!-- Start All Pages -->
+	<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>Special Menu</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End All Pages -->
+
+	<!-- Start Menu -->
+	<div class="menu-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2>Special Menu</h2>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="special-menu text-center">
+						<div class="button-group filter-button-group">
+							<button class="active" data-filter="*">All</button>
+							<button data-filter=".drinks">Drinks</button>
+							<button data-filter=".lunch">Lunch</button>
+							<button data-filter=".dinner">Dinner</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row special-list">
+				{% for item in menu_items %}
+				<div class="col-lg-4 col-md-6 special-grid {{ item[3] }}">
+					<div class="gallery-single fix">
+						<img src="../{{item[0]}}" class="img-fluid" alt="Image">
+						<div class="why-text">
+							<h4>{{ item[1] }}</h4>
+							<p>Sed id magna vitae eros sagittis.</p>
+							<h5> {{ item[2] }}</h5>
+							<button>Confirm</button>
+							<!--<a href="/updatemenu/{{ item[4] }}"><button>Update</button></a>-->
+						</div>
+					</div>
+
+				</div>
+				{% endfor %}
+
+
+			</div>
+		</div>
+	</div>
+	<!-- Inside the <head> tag -->
+	<style>
+		#bill-receipt {
+			background-color: #f8f9fa;
+			border: 1px solid #dee2e6;
+			padding: 20px;
+			margin-top: 20px;
+		}
+
+		#bill-receipt h3 {
+			margin-bottom: 10px;
+		}
+
+		#bill-receipt p {
+			margin-bottom: 5px;
+		}
+	</style>
+
+
+
+	<div id="bill-receipt"> </div>
+	<div id="downloadButtonContainer" style="display: none;">
+		<button onclick="downloadBillPDF()" class="btn btn-common" style="margin: 20px 20px;">Download Bill Receipt
+			PDF</button>
+		<button onclick="clearBill()" class="btn btn-common" style="margin: 20px 20px;">Clear Bill</button>
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="confirmModalLabel">Confirm Item Addition</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Are you sure you want to add this item to your bill?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="confirmAdd">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- End Menu -->
+
+
+
+	<!-- ALL JS FILES -->
+
+	<script>
+		// Initialize an empty array to store selected menu items
+		var selectedItems = [];
+
+		// Function to add selected menu items to billing section
+		function addToBill(itemName, itemPrice) {
+			// Push the selected item to the array
+			selectedItems.push({ name: itemName, price: itemPrice });
+
+			// Update the bill receipt
+			updateBillReceipt();
+
+			saveBillToDatabase(itemName, itemPrice);
+		}
+
+		// Function to make AJAX request to save the bill
+		function saveBillToDatabase(itemName, itemPrice) {
+			// Create JSON object with bill data
+			var billData = {
+				item_name: itemName,
+				item_price: itemPrice
+			};
+
+			// Make AJAX POST request to /save_bill endpoint
+			$.ajax({
+				type: 'POST',
+				url: '/save_bill',
+				contentType: 'application/json',
+				data: JSON.stringify(billData),
+				success: function (response) {
+					console.log(response.message);
+				},
+				error: function (error) {
+					console.error('Error saving bill:', error);
+				}
+			});
+		}
+
+
+		// Function to update the bill receipt
+		function updateBillReceipt() {
+			var billHTML = "<h3>Bill Receipt</h3>";
+			var total = 0;
+
+			// Iterate through selected items and calculate the total
+			selectedItems.forEach(function (item) {
+				billHTML += "<p>" + item.name + ": €" + item.price.toFixed(2) + "</p>";
+				total += item.price;
+			});
+
+			billHTML += "<p>Total: €" + total.toFixed(2) + "</p>";
+
+			// Display the bill receipt
+			document.getElementById("bill-receipt").innerHTML = billHTML;
+			document.getElementById("downloadButtonContainer").style.display = "block";
+		}
+		function clearBill() {
+			// Clear the selectedItems array
+			selectedItems = [];
+			// Update the bill receipt
+			updateBillReceipt();
+		}
+
+		// Add event listeners to buttons to open the modal when Confirm is clicked
+		document.querySelectorAll(".special-grid button").forEach(function (button) {
+			button.addEventListener("click", function () {
+				// When the Confirm button is clicked, store the item details in data attributes of the modal
+				var modal = document.getElementById("confirmModal");
+				var itemName = this.parentNode.querySelector("h4").textContent;
+				var itemPrice = parseFloat(this.parentNode.querySelector("h5").textContent.substring(1));
+				modal.setAttribute("data-item-name", itemName);
+				modal.setAttribute("data-item-price", itemPrice.toFixed(2));
+
+				// Show the modal
+				$('#confirmModal').modal('show');
+			});
+		});
+
+		// Add event listener to the Confirm button in the modal to add the item to the bill
+		document.getElementById("confirmAdd").addEventListener("click", function () {
+			// Get item details from data attributes of the modal
+			var itemName = document.getElementById("confirmModal").getAttribute("data-item-name");
+			var itemPrice = parseFloat(document.getElementById("confirmModal").getAttribute("data-item-price"));
+			addToBill(itemName, itemPrice);
+
+			// Hide the modal
+			$('#confirmModal').modal('hide');
+		});
+
+
+		// Function to trigger the download of the bill receipt PDF
+		function downloadBillPDF() {
+			// Make a POST request to the Flask route with selected items as JSON data
+			fetch('/download_bill_pdf', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(selectedItems)
+			})
+				.then(response => {
+					// Check if response is successful
+					if (response.ok) {
+						// Trigger the download of the bill receipt PDF
+						return response.blob();
+					}
+					throw new Error('Failed to download bill receipt PDF');
+				})
+				.then(blob => {
+					// Create a URL for the blob
+					const url = window.URL.createObjectURL(blob);
+					// Create a temporary link element
+					const a = document.createElement('a');
+					// Set the link's href to the URL of the blob
+					a.href = url;
+					// Set the download attribute and filename
+					a.download = 'bill_receipt.pdf';
+					// Append the link to the body and trigger the download
+					document.body.appendChild(a);
+					a.click();
+					// Clean up by revoking the URL
+					window.URL.revokeObjectURL(url);
+				})
+				.catch(error => {
+					console.error('Error downloading bill receipt PDF:', error);
+				});
+		}
+
+		// Function to trigger the download of the bill receipt PDF
+
+
+	</script>
+	    <script>
+			// Function to send AJAX request to start shift
+			function startShift() {
+				fetch('/start_shift', {
+					method: 'POST'
+				}).then(response => {
+					if (response.ok) {
+						alert('Shift started');
+					}
+				});
+			}
+	
+			// Function to send AJAX request to stop shift
+			function stopShift() {
+				fetch('/stop_shift', {
+					method: 'POST'
+				}).then(response => {
+					if (response.ok) {
+						response.text().then(duration => {
+							alert('Shift stopped. Shift duration: ' + duration);
+						});
+					}
+				});
+			}
+	
+			
+	
+			
+			// Attach event listeners to buttons
+			document.getElementById('startShiftBtn').addEventListener('click', startShift);
+			document.getElementById('stopShiftBtn').addEventListener('click', stopShift);
+			
+		</script>
+
+	<script src="{{url_for('static',filename='js/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+	<!-- ALL PLUGINS -->
+	<script src="{{url_for('static',filename='js/jquery.superslides.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/images-loded.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/isotope.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/baguetteBox.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/form-validator.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/contact-form-script.js')}}"></script>
+	<script src="{{url_for('static',filename='js/custom.js')}}"></script>
+
+</body>
+
+</html>
