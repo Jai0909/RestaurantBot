@@ -24,7 +24,7 @@ app.config['GRAPH_UPLOADS'] = 'static/graphs/'
 app.secret_key = 'any random string'
 
 def dbConnection():
-    connection = pymysql.connect(host="localhost", user="root", password="pwd", database="restaurant", port=3306)
+    connection = pymysql.connect(host="localhost", user="root", password="Shreya$2408", database="restaurant", port=3306)
     return connection
 
 
@@ -39,11 +39,6 @@ def dbClose():
 con = dbConnection()
 cursor = con.cursor()
 
-
-@app.route('/index')
-def index():
-    return render_template('index.html') 
-
 @app.route('/addemployee')
 def addemployee():
     return render_template('addemployee.html') 
@@ -51,15 +46,6 @@ def addemployee():
 @app.route('/')
 def login():
     return render_template('login.html') 
-
-@app.route('/homepage')
-def homepage():
-    return render_template('homepage.html') 
-
-@app.route('/mainpage')
-def mainpage():
-    return render_template('mainpage.html')
-
 
 @app.route('/addmenu')
 def addmenu():
@@ -196,7 +182,7 @@ def manageraddmenu():
             val = (filenamepath, menuname, price, category)
             cursor.execute(sql, val)
             con.commit()
-            return render_template('mainpage.html')
+            return redirect(url_for('manager_view_menu'))
     
 @app.route('/menu')
 def menu():
@@ -392,7 +378,7 @@ def editcourse():
         val2 = (filenamepath, price, category, str(menuname), productid)
         cursor.execute(sql2,val2)
         con.commit()
-        return render_template('index.html')
+        return redirect(url_for('manager_view_menu'))
         
 @app.route('/manageraddsupplier',methods=['POST','GET'])
 def manageraddsupplier():
@@ -418,7 +404,7 @@ def manageraddsupplier():
             val = (filenamepath, suppliername, stype, mobileno)
             cursor.execute(sql, val)
             con.commit()
-            return render_template('mainpage.html')
+            return render_template('supplier.html')
         
 @app.route('/supplier')
 def supplier():
